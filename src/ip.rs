@@ -112,8 +112,8 @@ impl IP {
             } else {
                 match instr_char {
                     ' ' => (),
-                    '.' => print!("{} ",self.popstack()),
-                    ',' => print!("{}",std::char::from_u32(self.popstack() as u32).unwrap_or('?')),
+                    '.' => {self.popstack();}, //print!("{} ",self.popstack()),
+                    ',' => {self.popstack();}, //print!("{}",std::char::from_u32(self.popstack() as u32).unwrap_or('?')),
                     '~' => {
                         let byte = std::io::stdin().bytes().next().unwrap_or(Ok('\n' as u8)).expect("stdin error");
                         self.stack.push(byte as FungeCell);
