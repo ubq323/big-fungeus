@@ -1,6 +1,5 @@
 
-type FungeCell =  i64;
-
+pub type FungeCell =  i64;
 
 pub mod vm;
 pub mod ip;
