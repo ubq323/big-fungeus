@@ -17,7 +17,6 @@ pub fn mainloop(program: Vec<u8>) {
     let mut ip = IP::new();
 
     vm.space.load(program);
-
     loop {
         if !ip.go(&mut vm) {
             break;

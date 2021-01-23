@@ -18,16 +18,39 @@ impl Space {
     pub fn minx(&self) -> FungeCell {self.minx}
     pub fn miny(&self) -> FungeCell {self.miny}
 
+    pub fn refresh_bounds(&mut self) {
+        // the only time we actually need to properly check the current
+        // min and max, instead of just keeping track of the greatest
+        // ones we have seen so far, is in the y command.
+        let (mut maxx,mut maxy,mut minx,mut miny) = (0,0,0,0);
+        for (coord, _) in self.cells.iter() {
+            // there will never be any 32s in here
+            let (x,y) = *coord;
+            maxx = max(maxx,x);
+            maxy = max(maxy,y);
+            minx = min(minx,x);
+            miny = min(miny,y);
+        }
+        self.maxx=maxx;
+        self.maxy=maxy;
+        self.minx=minx;
+        self.miny=miny;
+    }
+
     pub fn get(&mut self, xy: (FungeCell,FungeCell)) -> FungeCell {
-        *self.cells.entry(xy).or_insert(32)
+        self.cells.get(&xy).copied().unwrap_or(32)
     }
     pub fn set(&mut self, xy: (FungeCell,FungeCell), value: FungeCell) {
-        self.cells.insert(xy,value);
-        let (x,y) = xy;
-        self.maxx = max(self.maxx,x);
-        self.maxy = max(self.maxy,y);
-        self.minx = min(self.minx,x);
-        self.miny = min(self.miny,y);
+        if value == 32 {
+            self.cells.remove(&xy);
+        } else {
+            self.cells.insert(xy,value);
+            let (x,y) = xy;
+            self.maxx = max(self.maxx,x);
+            self.maxy = max(self.maxy,y);
+            self.minx = min(self.minx,x);
+            self.miny = min(self.miny,y);
+        }
     }
     pub fn new() -> Space {
         Space {

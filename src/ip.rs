@@ -112,8 +112,8 @@ impl IP {
             } else {
                 match instr_char {
                     ' ' => (),
-                    '.' => {self.popstack();}, //print!("{} ",self.popstack()),
-                    ',' => {self.popstack();}, //print!("{}",std::char::from_u32(self.popstack() as u32).unwrap_or('?')),
+                    '.' => print!("{} ",self.popstack()),
+                    ',' => print!("{}",std::char::from_u32(self.popstack() as u32).unwrap_or('?')),
                     '~' => {
                         let byte = std::io::stdin().bytes().next().unwrap_or(Ok('\n' as u8)).expect("stdin error");
                         self.stack.push(byte as FungeCell);
@@ -163,6 +163,7 @@ impl IP {
                         self.stack.push(((year-1900)*256*256)+(month*256)+day);
 
                         // board size
+                        vm.space.refresh_bounds();
                         let (minx,miny,maxx,maxy) = (vm.space.minx(),vm.space.miny(),vm.space.maxx(),vm.space.maxy());
                         let (lx,ly) = (maxx-minx,maxy-miny);
 
