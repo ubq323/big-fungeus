@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>beans</title>
+    </head>
+    <body>
+        <script type="module">
+            import init, { perform } from './pkg/fungeweb.js';
+            async function run() {
+                await init();
+                const result = perform();
+                console.log(result);
+            }
+            run();
+        </script>
+    </body>
+</html>
