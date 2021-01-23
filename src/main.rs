@@ -3,13 +3,11 @@ use std::io::Read;
 
 #[derive(Debug)]
 struct CmdLineArgs {
-    debugger: bool,
     filename: String,
 }
 
 fn get_args() -> Result<CmdLineArgs,String> {
     let mut argobj = CmdLineArgs { 
-        debugger: false,
         filename: "".to_string(),
     };
 
@@ -21,9 +19,6 @@ fn get_args() -> Result<CmdLineArgs,String> {
         match &args[idx] {
             arg if arg.chars().next() == Some('-') => {
                 match arg.as_str() {
-                    "-D" => {
-                        argobj.debugger = true;
-                    },
                     _ => {
                         return Err(format!("unknown argument: {}",arg).into());
                     }
@@ -58,16 +53,7 @@ fn main() {
             file.read_to_end(&mut buf).expect("couldn't read file");
 
         
-            if args.debugger {
-                #[cfg(feature = "debugger")] {
-                    bigfungeus::debugger::debugger_mainloop(buf);
-                }
-                #[cfg(not(feature = "debugger"))] {
-                    panic!("not compiled with debugger support")
-                }
-            } else {
-                bigfungeus::mainloop(buf);
-            }
+            bigfungeus::mainloop(buf);
             /*
             let mut vm = vm::VM::new();
             let mut ip = ip::IP::new();

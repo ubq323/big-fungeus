@@ -5,8 +5,6 @@ type FungeCell =  i64;
 pub mod vm;
 pub mod ip;
 mod util;
-#[cfg(feature = "debugger")]
-pub mod debugger;
 
 // very temporary
 pub fn mainloop(program: Vec<u8>) {

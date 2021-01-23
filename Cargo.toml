@@ -1,13 +1,10 @@
 [package]
 name = "bigfungeus"
 version = "0.1.0"
-authors = ["ubq323 <ubq323@pm.me>"]
+authors = ["ubq323 <ubq323@ubq323.website>"]
 edition = "2018"
 
 [features]
-default = ["debugger"]
-debugger = ["pancurses"]
 
 [dependencies]
 rand="0.7.3"
-pancurses={version="0.16.1",optional=true,features=["wide"]}
