@@ -14,3 +14,5 @@ A [Funge-98](https://esolangs.org/wiki/funge-98) interpreter, written in Rust. C
 - working debugger with nice interface
 - support other dimensional funges than 2 (befunge)
     - mvrs fingerprint will require multiple amounts dimensions in different universes at the same time
+- support running in a web browser via webassembly
+
